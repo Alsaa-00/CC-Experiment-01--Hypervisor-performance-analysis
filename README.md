@@ -1,32 +1,32 @@
-# Cloud Computing Lab
+# CC Experiment 01 – Hypervisor Performance Analysis
 
-# Performance Analysis of Type-1 and Type-2 Hypervisors
-
-## Proxmox VE (Type-1) vs VMware Workstation (Type-2)
+<p align="center">
+  <b>Type-1 vs Type-2 Hypervisor Performance using Sysbench</b><br>
+  <sub>Cloud Computing • Ubuntu VM • CPU Benchmarking</sub>
+</p>
 
 ---
 
-## 1. Introduction
+# 1. Introduction
 
-A hypervisor is a software or firmware layer that enables virtualization
-and allows multiple virtual machines to run on physical computing
-resources.
+Cloud computing relies heavily on virtualization to efficiently utilize
+computing resources. Virtualization allows multiple virtual machines (VMs)
+to run on the same physical hardware while maintaining separate operating
+environments.
 
-Hypervisors are broadly classified into two types:
+A key component of virtualization is the **hypervisor**, which manages
+virtual machines and controls their access to CPU, memory, storage, and
+network resources.
 
-- Type-1 Hypervisor – Bare-metal hypervisor
-- Type-2 Hypervisor – Hosted hypervisor
+In this experiment, the performance of two different hypervisor
+architectures is studied:
 
-This experiment performs a practical performance analysis of a Type-1
-hypervisor and a Type-2 hypervisor using identically configured Ubuntu
-virtual machines.
+- **Type-1 Hypervisor – Proxmox VE**
+- **Type-2 Hypervisor – VMware Workstation**
 
-The two platforms used are:
-
-- Proxmox VE – Type-1 Hypervisor
-- VMware Workstation – Type-2 Hypervisor
-
-CPU performance is measured using Sysbench.
+Both environments are used to run Ubuntu virtual machines with similar
+resource configurations. Their CPU performance is then measured using
+Sysbench.
 
 ---
 
@@ -49,7 +49,6 @@ running inside the virtual machine is called the **guest operating system**.
 
 ### Basic Virtualization Architecture
 
-
 ┌─────────────────────────────────────────────┐
 │              Physical Hardware              │
 ├─────────────────────────────────────────────┤
@@ -58,8 +57,7 @@ running inside the virtual machine is called the **guest operating system**.
 │      Virtual Machine 1│     Virtual Machine 2│
 │      Ubuntu           │     Ubuntu           │
 │      CPU / RAM / Disk │     CPU / RAM / Disk │
-
----
+└──────────────────────┴──────────────────────┘
 
 # 3. Objectives
 
