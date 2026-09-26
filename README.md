@@ -205,7 +205,7 @@ CC-Experiment-01-Hypervisor-Analysis/
 │   └── performance-analysis.md
 └── 📄 README.md
 ```
-*(A detailed benchmark breakdown can also be found in [`results/performance-analysis.md`](results/performance-analysis.md))*
+*(A detailed benchmark breakdown can also be found in [`Results/performance-analysis.md`](results/performance-analysis.md))*
 
 ---
 
