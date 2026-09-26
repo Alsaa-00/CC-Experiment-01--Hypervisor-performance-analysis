@@ -36,6 +36,28 @@ The hypervisors considered in this experiment are:
 - Type-2: VMware Workstation
 
 ---
+## 2.1. Repository Structure
+
+```text
+CC-Experiment-01-Hypervisor-Analysis/
+│
+├── README.md
+├── LAB_REPORT.md
+│
+├── Results/
+│   └── Performance-analysis.md
+│
+├── Graphs/
+│   ├── execution-time-comparison.png
+│   ├── events-per-second-comparison.png
+│   ├── average-latency-comparison.png
+│   ├── latency-comparison.png
+│   └── overall-performance-comparison.png
+│
+└── Screenshots/
+    ├── Comparison/
+    ├── Type - 02 VMware/
+    └── Type-01 proxmox/
 
 # 3. Objectives
 
@@ -226,3 +248,72 @@ The following commands are used for verification:
 
 ```bash
 hostnamectl
+
+# 18. Performance Analysis Graphs
+
+The performance of the Type-1 and Type-2 hypervisors will be analyzed
+using the actual Sysbench benchmark results obtained from both
+environments.
+
+The following graphs will be used for comparison:
+
+## 18.1 Execution Time Comparison
+
+This graph compares the total CPU benchmark execution time of:
+
+- Proxmox VE
+- VMware Workstation
+
+**Graph:**
+
+`graphs/execution-time-comparison.png`
+
+---
+
+## 18.2 Events Per Second Comparison
+
+This graph compares the number of benchmark events processed per second
+by the two hypervisor environments.
+
+**Graph:**
+
+`graphs/events-per-second-comparison.png`
+
+---
+
+## 18.3 Average Latency Comparison
+
+This graph compares the average CPU benchmark latency between:
+
+- Proxmox VE
+- VMware Workstation
+
+**Graph:**
+
+`graphs/average-latency-comparison.png`
+
+---
+
+## 18.4 Minimum and Maximum Latency Comparison
+
+This graph compares the minimum and maximum latency recorded during the
+Sysbench benchmark.
+
+**Graph:**
+
+`graphs/latency-comparison.png`
+
+---
+
+## 18.5 Overall Performance Comparison
+
+A final graph will summarize the measured performance parameters of both
+hypervisor environments.
+
+**Graph:**
+
+`graphs/overall-performance-comparison.png`
+
+> The graphs will be added after the actual benchmark results are
+> collected. No estimated or fabricated values will be used.
+
