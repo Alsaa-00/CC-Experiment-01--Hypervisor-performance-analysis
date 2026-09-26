@@ -226,4 +226,3 @@ This experiment effectively documents the CPU benchmark behavior of Ubuntu virtu
 
 Operating with direct access to host hardware, the Type-1 hypervisor vastly outperformed the Type-2 hypervisor in this specific CPU-bound workload, demonstrating >6x higher event throughput and >6x lower processing latency. 
 
-> ⚠️ **Scope & Disclaimer:** These observations are strictly specific to the hardware, versions, and configurations utilized during this run. They illustrate architectural differences but should not be interpreted as universal performance constants across all workloads.
