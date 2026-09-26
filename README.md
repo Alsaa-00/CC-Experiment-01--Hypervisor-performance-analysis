@@ -1,319 +1,565 @@
 # Cloud Computing Lab
 
-## Performance Analysis of Type-1 and Type-2 Hypervisors
+# Performance Analysis of Type-1 and Type-2 Hypervisors
 
-### Proxmox VE vs VMware Workstation
+## Proxmox VE (Type-1) vs VMware Workstation (Type-2)
 
 ---
 
 ## 1. Introduction
 
-A hypervisor is a software layer that enables virtualization by allowing
-multiple virtual machines (VMs) to run on a physical computer.
-
-Each virtual machine can have its own operating system, virtual CPU,
-memory, storage, and network resources.
+A hypervisor is a software or firmware layer that enables virtualization
+and allows multiple virtual machines to run on physical computing
+resources.
 
 Hypervisors are broadly classified into two types:
 
-1. Type-1 Hypervisor
-2. Type-2 Hypervisor
+- Type-1 Hypervisor – Bare-metal hypervisor
+- Type-2 Hypervisor – Hosted hypervisor
 
-This experiment studies the performance of both types of hypervisors by
-running similarly configured Ubuntu virtual machines and measuring their
-CPU performance using Sysbench.
+This experiment performs a practical performance analysis of a Type-1
+hypervisor and a Type-2 hypervisor using identically configured Ubuntu
+virtual machines.
+
+The two platforms used are:
+
+- Proxmox VE – Type-1 Hypervisor
+- VMware Workstation – Type-2 Hypervisor
+
+CPU performance is measured using Sysbench.
 
 ---
 
 # 2. Aim
 
-To analyze and compare the performance of Type-1 and Type-2 hypervisors
-using identical virtual machine configurations and a CPU benchmark.
-
-The hypervisors considered in this experiment are:
-
-- Type-1: Proxmox VE
-- Type-2: VMware Workstation
+To analyze and compare the CPU performance of Type-1 and Type-2
+hypervisors using identically configured virtual machines and the
+Sysbench CPU benchmark.
 
 ---
-## 2.1. Repository Structure
-
-```text
-CC-Experiment-01-Hypervisor-Analysis/
-│
-├── README.md
-├── LAB_REPORT.md
-│
-├── Results/
-│   └── Performance-analysis.md
-│
-├── Graphs/
-│   ├── execution-time-comparison.png
-│   ├── events-per-second-comparison.png
-│   ├── average-latency-comparison.png
-│   ├── latency-comparison.png
-│   └── overall-performance-comparison.png
-│
-└── Screenshots/
-    ├── Comparison/
-    ├── Type - 02 VMware/
-    └── Type-01 proxmox/
 
 # 3. Objectives
 
-The main objectives of this experiment are:
-
-- To understand the concept of virtualization.
-- To understand Type-1 and Type-2 hypervisors.
-- To configure virtual machines with identical resources.
-- To deploy Ubuntu on both virtualization platforms.
-- To monitor the virtual machine configurations and resources.
-- To perform CPU benchmarking using Sysbench.
-- To record the benchmark results.
-- To compare the performance of the two hypervisor environments.
-- To understand the effect of the virtualization layer on VM performance.
-
----
-
-# 4. Virtualization
-
-Virtualization is a technology that allows physical computing resources
-such as CPU, memory, storage, and networking to be divided and presented
-as virtual resources.
-
-A virtual machine behaves like an independent computer and can run its
-own operating system and applications.
-
-Virtualization provides:
-
-- Resource isolation
-- Efficient resource utilization
-- Multiple operating systems on one physical machine
-- Easier testing and development
-- Flexible resource allocation
-- Simplified deployment and management
+- To understand virtualization and hypervisors.
+- To study Type-1 and Type-2 hypervisors.
+- To configure an Ubuntu virtual machine on Proxmox VE.
+- To configure an Ubuntu virtual machine on VMware Workstation.
+- To maintain similar VM configurations for both environments.
+- To verify CPU, memory, disk, and system configuration.
+- To install and use Sysbench.
+- To perform CPU performance benchmarking.
+- To record benchmark measurements.
+- To analyze the performance results.
+- To compare the results obtained from both hypervisors.
+- To visualize the benchmark results using graphs.
 
 ---
 
-# 5. Hypervisor
+# 4. Requirements
 
-A hypervisor, also called a Virtual Machine Monitor (VMM), is a software
-or firmware layer responsible for creating and managing virtual machines.
+## Hardware / Environment
 
-The hypervisor manages the physical hardware resources and allocates
-virtual resources to individual virtual machines.
+- Computer system
+- Network connectivity
+- Proxmox VE server
+- VMware Workstation
+- Ubuntu ISO image
 
-The major resources managed by a hypervisor include:
+## Software
 
-- CPU
-- RAM
-- Storage
-- Network interfaces
-
-Hypervisors are classified into Type-1 and Type-2 based on where the
-hypervisor operates in relation to the host operating system.
+- Proxmox VE
+- VMware Workstation
+- Ubuntu
+- Sysbench
+- Web browser
 
 ---
 
-# 6. Type-1 Hypervisor
+# 5. Virtual Machine Configuration
 
-A Type-1 hypervisor is also called a **bare-metal hypervisor**.
+Both virtual machines should use the same basic configuration so that
+the performance comparison is performed under comparable conditions.
 
-It runs directly on the physical hardware instead of running on top of
-a conventional host operating system.
+| Resource | Configuration |
+|---|---|
+| Guest Operating System | Ubuntu |
+| CPU | 2 vCPU |
+| Memory | 2 GB |
+| Disk | 20 GB |
+| CPU Benchmark | Sysbench |
+| Benchmark Parameter | cpu-max-prime=20000 |
 
-The virtual machines are managed directly by the hypervisor layer.
+---
 
-### Characteristics
+# 6. Hypervisor Classification
 
-- Runs directly on physical hardware.
-- Does not require a conventional host operating system underneath it.
-- Provides virtualization and resource management directly.
-- Commonly used in servers and data centers.
-- Provides an environment designed specifically for virtualization.
+## 6.1 Type-1 Hypervisor
+
+A Type-1 hypervisor is also known as a bare-metal hypervisor.
+
+It operates directly on the physical server hardware and manages virtual
+machines and their allocated resources.
 
 ### Type-1 Hypervisor Used
 
 **Proxmox VE**
 
-Proxmox Virtual Environment (Proxmox VE) is the Type-1 virtualization
-platform used in this experiment.
-
 ---
 
-# 7. Type-2 Hypervisor
+## 6.2 Type-2 Hypervisor
 
-A Type-2 hypervisor is also called a **hosted hypervisor**.
+A Type-2 hypervisor is also known as a hosted hypervisor.
 
-It runs as an application on top of an existing host operating system.
-
-The host operating system manages the physical hardware while the
-hypervisor provides the virtualization environment for virtual machines.
-
-### Characteristics
-
-- Runs on top of a host operating system.
-- Uses the host operating system to access physical resources.
-- Commonly used for desktop virtualization, development, testing,
-  and educational environments.
-- Provides a convenient environment for running virtual machines on
-  personal computers.
+It runs on top of an existing host operating system and provides an
+environment for creating and running virtual machines.
 
 ### Type-2 Hypervisor Used
 
 **VMware Workstation**
 
-VMware Workstation is the Type-2 virtualization platform used in this
-experiment.
+---
+
+# 7. Type-1 Hypervisor – Proxmox VE
+
+## Part A: Performance Analysis Using Proxmox VE
+
+Proxmox VE is used as the Type-1 hypervisor.
+
+The Ubuntu virtual machine is created with:
+
+- 2 vCPU
+- 2 GB RAM
+- 20 GB disk
+- Ubuntu operating system
+
+The VM is then verified and benchmarked using Sysbench.
 
 ---
 
-# 8. Type-1 vs Type-2 Hypervisor
+## 7.1 Accessing Proxmox VE
 
-| Feature | Type-1 Hypervisor | Type-2 Hypervisor |
-|---|---|---|
-| Other Name | Bare-metal hypervisor | Hosted hypervisor |
-| Location | Runs directly on hardware | Runs on a host operating system |
-| Example Used | Proxmox VE | VMware Workstation |
-| Host OS Dependency | Does not require a conventional host OS | Requires a host operating system |
-| Typical Usage | Servers and data centers | Desktop, development and testing |
-| Virtual Machines | Managed directly by the hypervisor | Managed through the host OS and hypervisor |
+The Proxmox VE web interface is accessed using:
 
----
+```text
+https://<PROXMOX_SERVER_IP>:8006
 
-# 9. Proxmox VE
+7.2 Creating the Virtual Machine
 
-Proxmox VE is the Type-1 virtualization platform used for the experiment.
+The Proxmox VM creation wizard is used to create the virtual machine.
 
-The virtual machine is created inside the Proxmox environment with the
-specified hardware configuration.
+The configuration process includes:
 
-The Ubuntu virtual machine is then used for system verification and
-benchmarking.
+General
+   ↓
+OS
+   ↓
+System
+   ↓
+Disks
+   ↓
+CPU
+   ↓
+Memory
+   ↓
+Network
+   ↓
+Confirm
+7.3 Proxmox VM Configuration
+Parameter	Configuration
+VM Name	CC-Experiment1-Type1
+Operating System	Ubuntu
+CPU	2 vCPU
+Sockets	1
+Cores	2
+Memory	2048 MiB
+Disk	20 GB
+Network Bridge	vmbr0
 
-The Proxmox VM configuration used in this experiment includes:
+The VM is then created and started.
 
-- Operating System: Ubuntu
-- CPU: 2 vCPU
-- Memory: 2048 MB
-- Storage: 20 GB
+7.4 Ubuntu Installation
 
----
+Ubuntu is installed inside the Proxmox virtual machine.
 
-# 10. VMware Workstation
+The general installation process includes:
 
-VMware Workstation is the Type-2 virtualization platform used for the
-second part of the experiment.
+Select language.
+Select Install Ubuntu.
+Configure keyboard layout.
+Select installation type.
+Select the virtual disk.
+Configure timezone.
+Create the Ubuntu user account.
+Complete installation.
+Restart the VM.
+Log in to Ubuntu.
+7.5 System Verification
 
-The Ubuntu virtual machine is created inside VMware Workstation using
-the same basic resource configuration as the Proxmox virtual machine.
+The following commands are used to verify the virtual machine.
 
-The VMware VM configuration used in this experiment includes:
+System Information
+hostnamectl
+CPU Information
+lscpu
+Memory Information
+free -h
+Disk Information
+df -h
+Resource Monitoring
+top
 
-- Operating System: Ubuntu
-- CPU: 2 vCPU
-- Memory: 2048 MB
-- Storage: 20 GB
+Press q to exit top.
 
-Using similar configurations allows the benchmark results from the two
-environments to be compared under controlled conditions.
+7.6 Installing Sysbench
 
----
+Update the Ubuntu package repository:
 
-# 11. Experimental Configuration
+sudo apt update
 
-To make the comparison meaningful, the virtual machines are configured
-with the same resources.
+Install Sysbench:
 
-### Standard VM Configuration
+sudo apt install sysbench -y
 
-| Resource | Configuration |
-|---|---|
-| Operating System | Ubuntu |
-| CPU | 2 vCPU |
-| Memory | 2 GB |
-| Storage | 20 GB |
-| CPU Benchmark | Sysbench |
+Verify the installation:
 
-The same CPU benchmark is executed inside both virtual machines.
+sysbench --version
+7.7 CPU Performance Benchmark
 
----
+Run:
 
-# 12. System Verification
+sysbench cpu --cpu-max-prime=20000 run
 
-Before running the benchmark, the Ubuntu virtual machines are checked
-to verify their system configuration.
+Record the following values:
 
-The following commands are used for verification:
+Total execution time
+Total number of events
+Events per second
+Minimum latency
+Average latency
+Maximum latency
+7.8 Type-1 Observation Table
+Parameter	Observation
+Hypervisor	Proxmox VE
+Hypervisor Type	Type-1
+Guest OS	Ubuntu
+CPU Allocation	2 vCPU
+Memory Allocation	2 GB
+Disk Allocation	20 GB
+Total Execution Time	To be recorded
+Total Events	To be recorded
+Events per Second	To be recorded
+Minimum Latency	To be recorded
+Average Latency	To be recorded
+Maximum Latency	To be recorded
+7.8 Type-1 Observation Table
+Parameter	Observation
+Hypervisor	Proxmox VE
+Hypervisor Type	Type-1
+Guest OS	Ubuntu
+CPU Allocation	2 vCPU
+Memory Allocation	2 GB
+Disk Allocation	20 GB
+Total Execution Time	To be recorded
+Total Events	To be recorded
+Events per Second	To be recorded
+Minimum Latency	To be recorded
+Average Latency	To be recorded
+Maximum Latency	To be recorded
+7.9 Proxmox Resource Monitoring
 
-```bash
+The Proxmox interface can be used to observe:
+
+CPU usage
+Memory usage
+Network traffic
+Disk usage
+
+The resource observations will be recorded as part of the experiment.
+
+8. Type-2 Hypervisor – VMware Workstation
+Part B: Performance Analysis Using VMware Workstation
+
+VMware Workstation is used as the Type-2 hypervisor.
+
+The Ubuntu virtual machine is configured using the same basic resources
+as the Proxmox VM.
+
+8.1 Creating the VMware Virtual Machine
+
+Open VMware Workstation and select:
+
+Create a New Virtual Machine
+
+Select:
+
+Typical (recommended)
+
+Select the Ubuntu ISO image as the installation media.
+
+8.2 VMware VM Configuration
+Parameter	Configuration
+VM Name	CC-Experiment1-Type2
+Guest OS	Ubuntu
+CPU	2 vCPU
+Processors	1
+Cores per Processor	2
+Memory	2048 MB
+Hard Disk	20 GB
+Network	NAT
+8.3 Ubuntu Installation
+
+Complete the Ubuntu installation inside VMware Workstation.
+
+The installation includes:
+
+Select language.
+Select Install Ubuntu.
+Configure keyboard layout.
+Select installation type.
+Configure the virtual disk.
+Select timezone.
+Create the user account.
+Complete installation.
+Restart the VM.
+Log in to Ubuntu.
+8.4 System Verification
+
+Verify the VMware Ubuntu VM using:
+
 hostnamectl
 
-# 18. Performance Analysis Graphs
+CPU:
 
-The performance of the Type-1 and Type-2 hypervisors will be analyzed
-using the actual Sysbench benchmark results obtained from both
-environments.
+lscpu
 
-The following graphs will be used for comparison:
+Memory:
 
-## 18.1 Execution Time Comparison
+free -h
 
-This graph compares the total CPU benchmark execution time of:
+Disk:
 
-- Proxmox VE
-- VMware Workstation
+df -h
 
-**Graph:**
+Resource monitoring:
 
-`graphs/execution-time-comparison.png`
+top
 
----
+Press q to exit.
 
-## 18.2 Events Per Second Comparison
+8.5 Installing Sysbench
 
-This graph compares the number of benchmark events processed per second
-by the two hypervisor environments.
+Update the package repository:
 
-**Graph:**
+sudo apt update
 
-`graphs/events-per-second-comparison.png`
+Install Sysbench:
 
----
+sudo apt install sysbench -y
 
-## 18.3 Average Latency Comparison
+Verify:
 
-This graph compares the average CPU benchmark latency between:
+sysbench --version
+8.6 CPU Performance Benchmark
 
-- Proxmox VE
-- VMware Workstation
+Run the same benchmark used in Part A:
 
-**Graph:**
+sysbench cpu --cpu-max-prime=20000 run
 
-`graphs/average-latency-comparison.png`
+Record:
 
----
+Total execution time
+Total events
+Events per second
+Minimum latency
+Average latency
+Maximum latency
+8.7 Type-2 Observation Table
+Parameter	Observation
+Hypervisor	VMware Workstation
+Hypervisor Type	Type-2
+Guest OS	Ubuntu
+CPU Allocation	2 vCPU
+Memory Allocation	2 GB
+Disk Allocation	20 GB
+Total Execution Time	To be recorded
+Total Events	To be recorded
+Events per Second	To be recorded
+Minimum Latency	To be recorded
+Average Latency	To be recorded
+Maximum Latency	To be recorded
+9. Performance Analysis
 
-## 18.4 Minimum and Maximum Latency Comparison
+The performance analysis will be performed using the actual Sysbench
+results obtained from both virtual machines.
 
-This graph compares the minimum and maximum latency recorded during the
-Sysbench benchmark.
+The following metrics will be analyzed:
 
-**Graph:**
+Total Execution Time
+Total Events
+Events Per Second
+Minimum Latency
+Average Latency
+Maximum Latency
 
-`graphs/latency-comparison.png`
+The same benchmark configuration is used for both hypervisors.
 
----
+10. Performance Comparison
 
-## 18.5 Overall Performance Comparison
+The results obtained from Proxmox VE and VMware Workstation will be
+compared using the measured benchmark values.
 
-A final graph will summarize the measured performance parameters of both
+Performance Metric	Proxmox VE	VMware Workstation
+Total Execution Time	To be recorded	To be recorded
+Total Events	To be recorded	To be recorded
+Events Per Second	To be recorded	To be recorded
+Minimum Latency	To be recorded	To be recorded
+Average Latency	To be recorded	To be recorded
+Maximum Latency	To be recorded	To be recorded
+
+The comparison will be based only on the actual measurements obtained
+during the experiment.
+
+11. Graphical Analysis
+
+Graphs will be created from the actual benchmark results.
+
+11.1 Execution Time Comparison
+
+A bar graph will compare the total execution time of:
+
+Proxmox VE
+VMware Workstation
+
+Graph file:
+
+Graphs/execution-time-comparison.png
+11.2 Events Per Second Comparison
+
+A bar graph will compare the events processed per second by both
 hypervisor environments.
 
-**Graph:**
+Graph file:
 
-`graphs/overall-performance-comparison.png`
+Graphs/events-per-second-comparison.png
+11.3 Average Latency Comparison
 
-> The graphs will be added after the actual benchmark results are
-> collected. No estimated or fabricated values will be used.
+A bar graph will compare the average latency measured during the
+Sysbench CPU benchmark.
 
+Graph file:
+
+Graphs/average-latency-comparison.png
+11.4 Minimum and Maximum Latency Comparison
+
+A comparison graph will display the minimum and maximum latency recorded
+for both hypervisors.
+
+Graph file:
+
+Graphs/latency-comparison.png
+11.5 Overall Performance Comparison
+
+A final graphical comparison will summarize the measured performance
+metrics of Proxmox VE and VMware Workstation.
+
+Graph file:
+
+Graphs/overall-performance-comparison.png
+
+The graphs will be created only from the actual experimental results.
+No estimated or fabricated values will be used.
+
+12. Results
+
+The final results will be entered after completing both Part A and
+Part B.
+
+The results will contain:
+
+Proxmox VE benchmark output
+VMware Workstation benchmark output
+Performance comparison table
+Graphical comparison
+Observations
+13. Screenshots
+
+The actual screenshots captured during the experiment will be stored
+in the Screenshots directory.
+
+Type-1 – Proxmox VE
+
+Screenshots related to Part A will be stored in:
+
+Screenshots/Type-01 proxmox/
+
+These may include:
+
+Proxmox dashboard
+VM configuration
+Running VM
+Ubuntu console
+System configuration
+Sysbench result
+Resource monitoring
+Type-2 – VMware Workstation
+
+Screenshots related to Part B will be stored in:
+
+Screenshots/Type - 02 VMware/
+
+These may include:
+
+VMware VM configuration
+Running VM
+System configuration
+Sysbench result
+Comparison
+
+Comparison screenshots will be stored in:
+
+Screenshots/Comparison/
+14. Repository Structure
+Cloud-Computing-Lab/
+│
+├── README.md
+│
+└── CC-Experiment-01-Hypervisor-Analysis/
+    │
+    ├── README.md
+    ├── LAB_REPORT.md
+    │
+    ├── Results/
+    │   └── Performance-analysis.md
+    │
+    ├── Graphs/
+    │   ├── execution-time-comparison.png
+    │   ├── events-per-second-comparison.png
+    │   ├── average-latency-comparison.png
+    │   ├── latency-comparison.png
+    │   └── overall-performance-comparison.png
+    │
+    └── Screenshots/
+        ├── Comparison/
+        ├── Type - 02 VMware/
+        └── Type-01 proxmox/
+15. Conclusion
+
+This experiment provides practical experience with virtualization and
+hypervisor technologies.
+
+Proxmox VE is evaluated as a Type-1 hypervisor and VMware Workstation is
+evaluated as a Type-2 hypervisor.
+
+Both environments use comparable Ubuntu virtual machines and the same
+Sysbench CPU benchmark.
+
+The final conclusion will be based on the actual benchmark measurements,
+performance comparison, resource observations, and graphical analysis
+obtained during the experiment.
+
+16. References
+Cloud Computing Laboratory Manual – Performance Analysis of Type-1
+and Type-2 Hypervisors.
+Proxmox VE documentation.
+VMware Workstation documentation.
+Sysbench documentation.
