@@ -136,10 +136,24 @@ The VM is then verified and benchmarked using Sysbench.
 
 ---
 
+Final Comparison
+The final comparison screenshot is stored in:
+
+screenshots/comparison/01-hypervisor-performance-comparison.png
+
+
+<img width="1200" height="896" alt="image" src="https://github.com/user-attachments/assets/cb194ddb-a3bb-4a2b-875f-95e663f3cbca" />
+
 ## 7.1 Accessing Proxmox VE
 
 The Proxmox VE web interface is accessed using:
 
 ```text
 https://<PROXMOX_SERVER_IP>:8006
+
+
+
+
+
+
 
